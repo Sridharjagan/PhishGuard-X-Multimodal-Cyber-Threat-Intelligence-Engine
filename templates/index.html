@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>PhishGuard-X · Multi-Modal Threat Intelligence</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=JetBrains+Mono:wght@300;400;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <svg class="logo-shield" viewBox="0 0 44 44" fill="none">
+          <path d="M22 3L4 12v13c0 10 7.5 19.4 18 21.7C32.5 44.4 40 35 40 25V12L22 3z"
+            stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <path d="M13 22l7 7L33 14" stroke="#00d2ff" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-name">PHISHGUARD<span class="logo-x">-X</span></span>
+          <span class="logo-sub">MULTI-MODAL THREAT INTELLIGENCE · v2.0</span>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#scanner" class="nav-link active">Scanner</a>
+        <a href="#batch"   class="nav-link">Batch</a>
+        <a href="#graph"   class="nav-link">Threat Graph</a>
+        <a href="#metrics" class="nav-link">Analytics</a>
+        <div class="status-pill" id="statusPill">
+          <span class="sdot" id="sdot"></span>
+          <span id="stxt">Initializing...</span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- HERO -->
+    <section class="hero" id="scanner">
+      <div class="hero-content">
+        <div class="eyebrow">
+          <span class="epulse"></span>
+          9-LAYER ML · HOMOGRAPH · DOMAIN · CONTENT · GRAPH · XAI
+        </div>
+        <h1 class="hero-title">
+          Multi-Modal<br/><em>Phishing Intelligence</em>
+        </h1>
+        <p class="hero-desc">
+          URL Intelligence · Domain WHOIS+DNS+SSL · Content Analysis ·
+          Threat Feeds · Attack Graph · Explainable AI — fused via adaptive
+          Bayesian ensemble.
+        </p>
+
+        <!-- Layer selector -->
+        <div class="layer-selector">
+          <span class="layer-label">Analysis Layers:</span>
+          <label class="layer-toggle active" data-layer="url">
+            <input type="checkbox" checked/> URL
+          </label>
+          <label class="layer-toggle" data-layer="domain">
+            <input type="checkbox"/> Domain
+          </label>
+          <label class="layer-toggle" data-layer="content">
+            <input type="checkbox"/> Content
+          </label>
+          <label class="layer-toggle" data-layer="threat">
+            <input type="checkbox"/> Threat Feeds
+          </label>
+          <label class="layer-toggle" data-layer="graph">
+            <input type="checkbox"/> Graph
+          </label>
+          <label class="layer-toggle active" data-layer="xai">
+            <input type="checkbox" checked/> XAI
+          </label>
+        </div>
+
+        <!-- Terminal Scanner -->
+        <div class="terminal">
+          <div class="terminal-bar">
+            <div class="t-dots"><span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span></div>
+            <span class="t-label">THREAT SCANNER · MULTI-MODAL</span>
+            <span class="t-ver" id="tVer">SYS:INIT</span>
+          </div>
+          <div class="terminal-body">
+            <div class="prompt-line"><span class="ps">$</span> phishguard-x --analyze --layers=url,domain,xai</div>
+            <div class="input-row">
+              <span class="scheme">https://</span>
+              <input id="urlInput" class="url-in" type="text"
+                placeholder="paste URL to analyze..." autocomplete="off" spellcheck="false"/>
+              <button class="scan-btn" id="scanBtn" onclick="scanURL()">
+                SCAN <span>›</span>
+              </button>
+            </div>
+            <div class="quicktests">
+              <span class="qt-lbl">Quick test:</span>
+              <button class="qt safe"   onclick="testURL('https://www.google.com')">google.com</button>
+              <button class="qt danger" onclick="testURL('http://paypal-secure-verify.login-account.tk/')">paypal spoof</button>
+              <button class="qt danger" onclick="testURL('https://paytm-secure-login.example.com')">paytm spoof</button>
+              <button class="qt danger" onclick="testURL('http://192.168.1.1/admin/login.php?redirect=x')">IP-based</button>
+              <button class="qt danger" onclick="testURL('https://faceb00k-login.com/verify')">leetspeak</button>
+              <button class="qt danger" onclick="testURL('http://user@evil.com/credentials')">@ attack</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hex visual -->
+      <div class="hero-visual">
+        <div class="hex-field">
+          <div class="hex-ring r1"></div><div class="hex-ring r2"></div>
+          <div class="hex-ring r3"></div><div class="hex-ring r4"></div>
+          <div class="hex-core">
+            <svg viewBox="0 0 80 80" fill="none">
+              <path d="M40 6L10 20v22c0 16.5 13 31 30 34.5C57 73 70 58.5 70 42V20L40 6z"
+                stroke="currentColor" stroke-width="1.5"/>
+              <path d="M25 40l11 11 19-19" stroke="currentColor"
+                stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="hex-node n1">URL</div>
+          <div class="hex-node n2">DNS</div>
+          <div class="hex-node n3">XAI</div>
+          <div class="hex-node n4">GNN</div>
+          <div class="hex-node n5">LLM</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="resultsSection" style="display:none" class="results-section">
+
+      <!-- Loading overlay -->
+      <div id="loadingOverlay" class="loading-overlay" style="display:none">
+        <div class="loading-content">
+          <div class="loading-spinner"></div>
+          <div class="loading-layers" id="loadingLayers"></div>
+        </div>
+      </div>
+
+      <div class="results-grid">
+
+        <!-- Verdict -->
+        <div class="verdict-card" id="verdictCard">
+          <div class="v-top">
+            <div class="v-icon" id="vIcon"></div>
+            <div class="v-text">
+              <div class="v-label" id="vLabel">ANALYZING...</div>
+              <div class="v-url" id="vURL"></div>
+            </div>
+          </div>
+          <div class="conf-row">
+            <span>THREAT CONFIDENCE</span>
+            <span id="confPct">0%</span>
+          </div>
+          <div class="conf-track"><div class="conf-fill" id="confFill"></div></div>
+          <div class="v-meta">
+            <div class="vm"><span class="vml">Risk Level</span>
+              <span class="risk-badge" id="riskBadge">—</span></div>
+            <div class="vm"><span class="vml">Analysis Time</span>
+              <span class="vmv" id="aTime">—</span></div>
+            <div class="vm"><span class="vml">Layers Run</span>
+              <span class="vmv" id="layersRun">—</span></div>
+            <div class="vm"><span class="vml">Model</span>
+              <span class="vmv" id="modelVer">—</span></div>
+          </div>
+        </div>
+
+        <!-- Layer Scores -->
+        <div class="layers-card">
+          <div class="card-head">
+            <span class="ct">LAYER CONTRIBUTIONS</span>
+            <span class="cc" id="layerCount">—</span>
+          </div>
+          <div id="layerScores" class="layer-scores-grid"></div>
+        </div>
+
+        <!-- Risk Indicators -->
+        <div class="indicators-card">
+          <div class="card-head">
+            <span class="ct">RISK INDICATORS</span>
+            <span class="cc" id="indCount">0 detected</span>
+          </div>
+          <div id="indList" class="ind-list">
+            <div class="no-ind">No risk indicators detected</div>
+          </div>
+        </div>
+
+        <!-- XAI -->
+        <div class="xai-card">
+          <div class="card-head">
+            <span class="ct">ANALYST EXPLANATION</span>
+            <span class="cc" id="xaiMethod">—</span>
+          </div>
+          <div id="analystSummary" class="analyst-summary"></div>
+          <div id="topFeatures"  class="top-features"></div>
+          <div id="counterfactual" class="counterfactual"></div>
+        </div>
+
+        <!-- Domain Intelligence -->
+        <div class="domain-card" id="domainCard" style="display:none">
+          <div class="card-head"><span class="ct">DOMAIN INTELLIGENCE</span></div>
+          <div id="domainGrid" class="domain-grid"></div>
+        </div>
+
+        <!-- Content Intelligence -->
+        <div class="content-card" id="contentCard" style="display:none">
+          <div class="card-head"><span class="ct">CONTENT INTELLIGENCE</span></div>
+          <div id="contentGrid" class="domain-grid"></div>
+        </div>
+
+        <!-- Attack info -->
+        <div class="attack-card" id="attackCard">
+          <div class="card-head"><span class="ct">ATTACK VECTOR ANALYSIS</span></div>
+          <div id="attackGrid" class="domain-grid"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- BATCH -->
+    <section class="section" id="batch">
+      <div class="sh"><h2 class="st">Batch <span>Scanner</span></h2>
+        <p class="ss">Analyze up to 50 URLs · URL+XAI layers · Parallel results</p></div>
+      <div class="batch-card">
+        <textarea id="batchIn" class="batch-ta" rows="7"
+          placeholder="One URL per line&#10;https://google.com&#10;http://paypal-secure.evil.tk/login&#10;https://paytm-secure-login.example.com"></textarea>
+        <div class="batch-actions">
+          <span class="bcnt" id="bCnt">0 URLs</span>
+          <button class="scan-btn scan-ghost" onclick="batchScan()">SCAN ALL ›</button>
+        </div>
+        <div id="batchResults" class="batch-results"></div>
+      </div>
+    </section>
+
+    <!-- THREAT GRAPH -->
+    <section class="section" id="graph">
+      <div class="sh"><h2 class="st">Attack <span>Graph Intelligence</span></h2>
+        <p class="ss">Real-time phishing infrastructure relationship graph</p></div>
+      <div class="graph-stats-grid" id="graphStats">
+        <div class="gs-card"><div class="gs-num" id="gsNodes">—</div><div class="gs-lbl">Graph Nodes</div></div>
+        <div class="gs-card"><div class="gs-num" id="gsEdges">—</div><div class="gs-lbl">Relationships</div></div>
+        <div class="gs-card"><div class="gs-num" id="gsDomains">—</div><div class="gs-lbl">Domains Tracked</div></div>
+        <div class="gs-card"><div class="gs-num" id="gsClusters">—</div><div class="gs-lbl">Phishing Clusters</div></div>
+      </div>
+    </section>
+
+    <!-- ANALYTICS -->
+    <section class="section" id="metrics">
+      <div class="sh"><h2 class="st">Model <span>Analytics</span></h2>
+        <p class="ss">9-layer ensemble · 84 URL features · Adaptive fusion</p></div>
+      <div class="metrics-grid">
+        <div class="mc"><div class="mn" id="mAcc">—</div><div class="ml">Accuracy</div>
+          <div class="mbar"><div class="mfill" id="bAcc"></div></div></div>
+        <div class="mc"><div class="mn" id="mPre">—</div><div class="ml">Precision</div>
+          <div class="mbar"><div class="mfill" id="bPre"></div></div></div>
+        <div class="mc"><div class="mn" id="mRec">—</div><div class="ml">Recall</div>
+          <div class="mbar"><div class="mfill" id="bRec"></div></div></div>
+        <div class="mc"><div class="mn" id="mF1">—</div><div class="ml">F1 Score</div>
+          <div class="mbar"><div class="mfill" id="bF1"></div></div></div>
+        <div class="mc"><div class="mn" id="mAUC">—</div><div class="ml">ROC-AUC</div>
+          <div class="mbar"><div class="mfill" id="bAUC"></div></div></div>
+      </div>
+      <div class="imp-section">
+        <h3 class="imp-title">Top Feature Importances (RFE → 45 selected)</h3>
+        <div id="impList" class="imp-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="fi">
+      <span>PHISHGUARD-X v2.0 · MIDNIGHT CYBER</span>
+      <span>9 Intelligence Layers · 84 URL Features · Homograph · Domain · Content · Graph · XAI</span>
+    </div>
+  </footer>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
